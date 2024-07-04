@@ -98,24 +98,15 @@ def consultar_db_via_api(query: str):
     - dict: Los resultados de la consulta en formato JSON.
     """
     try:
-        # Eliminar comillas dobles al inicio y al final de la consulta
         query = query.strip('"')
-        # Eliminar punto y coma al final de la consulta si existe
         if query.endswith(";"):
             query = query[:-1]
-        # Agregar barra invertida antes de cada comilla simple
         query = query.replace("'", "\\'")
-
-        print(query)
-        print("Consultando la API...")
-
         format_query_json = {"query": query}
         response = requests.post(
             url="https://jairodanielmt-anhelados.hf.space/execute",
-            json=format_query_json,  # Enviar el cuerpo de la solicitud como JSON
-            headers={
-                "Content-Type": "application/json"
-            },  # Asegurar el tipo de contenido
+            json=format_query_json,
+            headers={"Content-Type": "application/json"},
         )
         response.raise_for_status()
         data = response.json()
