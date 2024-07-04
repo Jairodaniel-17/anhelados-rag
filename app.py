@@ -12,7 +12,7 @@ embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/distiluse-base-multilingual-cased",
     encode_kwargs={"normalize_embeddings": True},
 )
-print("\033c")
+
 
 
 @tool
