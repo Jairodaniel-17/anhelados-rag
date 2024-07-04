@@ -1,0 +1,10 @@
+langchain
+langchain-community
+langchain-openai
+langchain-core
+langchain-huggingface
+langchain-experimental
+faiss-cpu
+jupyter
+torch
+langchainhub
