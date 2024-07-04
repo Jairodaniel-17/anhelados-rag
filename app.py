@@ -153,16 +153,24 @@ def ask_agent(consulta) -> str:
     return output["output"]
 
 
-def main():
-    print("\033c")
-    while True:
-        consulta = input("Ingrese su consulta: ")
-        respuesta = ask_agent(consulta)
-        print(respuesta)
-        print("-" * os.get_terminal_size().columns)
-        if input("\n¿Desea hacer otra consulta? (s/n): ") == "n":
-            break
+import streamlit as st
 
+st.title("Chatbot de Anhelados")
 
-if __name__ == "__main__":
-    main()
+if "history" not in st.session_state:
+    st.session_state["history"] = []
+
+pregunta = st.chat_input("Escribe tu consulta...")
+
+if pregunta:
+    st.session_state["history"].append({"role": "user", "content": pregunta})
+    respuesta = ask_agent(pregunta)
+    st.session_state["history"].append({"role": "ai", "content": respuesta})
+
+for message in st.session_state["history"]:
+    if message["role"] == "user":
+        with st.chat_message(name="user", avatar="👩‍💻"):
+            st.write(message["content"])
+    else:
+        with st.chat_message(name="ai", avatar="🍦"):
+            st.write(message["content"])
